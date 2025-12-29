@@ -12,6 +12,8 @@
         "@netlify/blobs": "^8.1.0",
         "blobshape": "^1.0.0",
         "bright": "^0.8.5",
+        "cheerio": "^1.1.2",
+        "lucide-react": "^0.562.0",
         "markdown-to-jsx": "^7.4.5",
         "next": "15.1.11",
         "react": "18.3.1",
