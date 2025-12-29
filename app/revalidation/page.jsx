@@ -6,6 +6,9 @@ export const metadata = {
     title: 'On-Demand Revalidation'
 };
 
+// Force dynamic rendering to avoid build-time fetch errors
+export const dynamic = 'force-dynamic';
+
 const tagName = 'randomWiki';
 const randomWikiUrl = 'https://en.wikipedia.org/api/rest_v1/page/random/summary';
 const maxExtractLength = 200;
