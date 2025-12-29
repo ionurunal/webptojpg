@@ -8,6 +8,7 @@ export const metadata = {
 
 // Force dynamic rendering to avoid build-time fetch errors
 export const dynamic = 'force-dynamic';
+export const revalidate = 0; // Disable static generation completely
 
 const tagName = 'randomWiki';
 const randomWikiUrl = 'https://en.wikipedia.org/api/rest_v1/page/random/summary';
@@ -59,26 +60,44 @@ export default async function Page() {
 }
 
 async function RandomWikiArticle() {
-    const randomWiki = await fetch(randomWikiUrl, {
-        next: { revalidate: revalidateTTL, tags: [tagName] }
-    });
+    try {
+        const randomWiki = await fetch(randomWikiUrl, {
+            next: { revalidate: revalidateTTL, tags: [tagName] }
+        });
 
-    const content = await randomWiki.json();
-    let extract = content.extract;
-    if (extract.length > maxExtractLength) {
-        extract = extract.slice(0, extract.slice(0, maxExtractLength).lastIndexOf(' ')) + ' [...]';
-    }
+        if (!randomWiki.ok) {
+            throw new Error(`HTTP ${randomWiki.status}`);
+        }
 
-    return (
-        <div className="bg-white text-neutral-600 card my-6 max-w-2xl">
-            <div className="card-title text-3xl px-8 pt-8">{content.title}</div>
-            <div className="card-body py-4">
-                <div className="text-lg font-bold">{content.description}</div>
-                <p className="italic">{extract}</p>
-                <a target="_blank" rel="noopener noreferrer" href={content.content_urls.desktop.page}>
-                    From Wikipedia
-                </a>
+        const content = await randomWiki.json();
+        let extract = content.extract;
+        if (extract.length > maxExtractLength) {
+            extract = extract.slice(0, extract.slice(0, maxExtractLength).lastIndexOf(' ')) + ' [...]';
+        }
+
+        return (
+            <div className="bg-white text-neutral-600 card my-6 max-w-2xl">
+                <div className="card-title text-3xl px-8 pt-8">{content.title}</div>
+                <div className="card-body py-4">
+                    <div className="text-lg font-bold">{content.description}</div>
+                    <p className="italic">{extract}</p>
+                    <a target="_blank" rel="noopener noreferrer" href={content.content_urls.desktop.page}>
+                        From Wikipedia
+                    </a>
+                </div>
             </div>
-        </div>
-    );
+        );
+    } catch (error) {
+        // Fallback for build-time or network errors
+        return (
+            <div className="bg-white text-neutral-600 card my-6 max-w-2xl">
+                <div className="card-title text-3xl px-8 pt-8">Random Wikipedia Article</div>
+                <div className="card-body py-4">
+                    <p className="italic">
+                        Loading random Wikipedia article... (Refresh the page to see content)
+                    </p>
+                </div>
+            </div>
+        );
+    }
 }
