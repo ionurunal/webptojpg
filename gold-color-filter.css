@@ -1,0 +1,140 @@
+/**
+ * WooCommerce Altın Rengi Görsel Filtreleme - CSS
+ *
+ * Bu dosyayı temanızın /css/ veya /style/ klasörüne yükleyin
+ * Örnek: wp-content/themes/TEMA_ADINIZ/css/gold-color-filter.css
+ *
+ * ÖNEMLİ: CSS'i yüklemek için functions.php'ye şu kodu ekleyin:
+ *
+ * function star_enqueue_gold_color_filter_styles() {
+ *     if ( is_product() ) {
+ *         wp_enqueue_style(
+ *             'star-gold-color-filter',
+ *             get_stylesheet_directory_uri() . '/css/gold-color-filter.css',
+ *             array(),
+ *             '1.0.0'
+ *         );
+ *     }
+ * }
+ * add_action( 'wp_enqueue_scripts', 'star_enqueue_gold_color_filter_styles' );
+ */
+
+/* Görseller için smooth geçiş efekti */
+.woocommerce-product-gallery__image,
+.product-thumbnails .col {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Gizlenen görseller için fade-out efekti */
+.woocommerce-product-gallery__image.hide-slide,
+.product-thumbnails .col.hide-thumb {
+    opacity: 0 !important;
+    transform: scale(0.95);
+    pointer-events: none;
+}
+
+/* Radio button seçiliyken vurgu efekti */
+input[name="altinrengi[]"]:checked + label,
+label.radio-wrapper:has(input[name="altinrengi[]"]:checked) {
+    font-weight: 600;
+    color: #d4af37; /* Altın rengi */
+}
+
+/* Radio button hover efekti */
+label.radio-wrapper {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+label.radio-wrapper:hover {
+    background-color: rgba(212, 175, 55, 0.1); /* Hafif altın rengi arka plan */
+}
+
+/* Radio button aktif efekti */
+label.radio-wrapper:has(input[name="altinrengi[]"]:checked) {
+    background-color: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+/* Loading animasyonu (opsiyonel) */
+.woocommerce-product-gallery__wrapper.is-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.woocommerce-product-gallery__wrapper.is-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border: 3px solid rgba(212, 175, 55, 0.3);
+    border-top-color: #d4af37;
+    border-radius: 50%;
+    animation: spinner 0.8s linear infinite;
+    z-index: 999;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Görsel zoom efekti (opsiyonel - hover'da) */
+.woocommerce-product-gallery__image:not(.hide-slide) img {
+    transition: transform 0.3s ease;
+}
+
+.woocommerce-product-gallery__image:not(.hide-slide):hover img {
+    transform: scale(1.05);
+}
+
+/* Thumbnail seçili durumu için border */
+.product-thumbnails .col:not(.hide-thumb) a {
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+    display: block;
+}
+
+.product-thumbnails .col:not(.hide-thumb).is-nav-selected a,
+.product-thumbnails .col:not(.hide-thumb):hover a {
+    border-color: #d4af37;
+}
+
+/* Responsive: Mobil için ayarlamalar */
+@media screen and (max-width: 768px) {
+    label.radio-wrapper {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+}
+
+/* Dark mode desteği (opsiyonel) */
+@media (prefers-color-scheme: dark) {
+    label.radio-wrapper:hover {
+        background-color: rgba(212, 175, 55, 0.2);
+    }
+
+    label.radio-wrapper:has(input[name="altinrengi[]"]:checked) {
+        background-color: rgba(212, 175, 55, 0.25);
+        border-color: rgba(212, 175, 55, 0.5);
+    }
+}
+
+/* Accessibility: Focus durumu için outline */
+input[name="altinrengi[]"]:focus + label,
+label.radio-wrapper:has(input[name="altinrengi[]"]:focus) {
+    outline: 2px solid #d4af37;
+    outline-offset: 2px;
+}
+
+/* Radio button için custom stil (opsiyonel) */
+input[name="altinrengi[]"] {
+    accent-color: #d4af37; /* Modern tarayıcılarda altın rengi radio button */
+}
