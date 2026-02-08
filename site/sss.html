@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sık Sorulan Sorular | Harem Gece Kulübü Kıbrıs</title>
+  <meta name="description" content="Harem Gece Kulübü hakkında sık sorulan sorular: çalışma saatleri, rezervasyon, VIP hizmetler, konum bilgisi ve Kıbrıs gece hayatı detayları.">
+  <link rel="canonical" href="https://haremgecekulubu.com/sss.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sık Sorulan Sorular - Harem Gece Kulübü">
+  <meta property="og:description" content="Harem Gece Kulübü hakkında merak edilen sorular ve cevapları.">
+  <meta property="og:url" content="https://haremgecekulubu.com/sss.html">
+  <meta property="og:site_name" content="Harem Gece Kulübü">
+  <meta property="og:image" content="https://haremgecekulubu.com/assets/img/club-01.webp">
+  <meta property="og:locale" content="tr_TR">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SSS - Harem Gece Kulübü Kıbrıs">
+  <meta name="twitter:description" content="Harem Gece Kulübü hakkında sık sorulan sorular.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <div id="header-slot"></div>
+
+  <main>
+    <!-- PAGE HERO -->
+    <section class="page-hero" aria-label="Sayfa başlığı">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Ana Sayfa</a>
+          <span class="breadcrumb__sep" aria-hidden="true">›</span>
+          <span>Sık Sorulan Sorular</span>
+        </nav>
+        <h1 class="page-hero__title">Sık Sorulan Sorular</h1>
+        <p class="page-hero__subtitle">Harem Gece Kulübü ve Kıbrıs gece hayatı hakkında en çok merak edilen soruların cevaplarını burada bulabilirsiniz.</p>
+      </div>
+    </section>
+
+    <!-- SSS FAQPage schema -->
+    <script type="application/ld+json" id="faq-schema"></script>
+
+    <!-- SSS Accordion -->
+    <section id="faq-section" class="section" data-no-title="" aria-label="Sık sorulan sorular listesi"></section>
+
+    <!-- CTA -->
+    <section id="cta-banner" class="section section--alt" aria-label="İletişime geçin"></section>
+  </main>
+
+  <div id="footer-slot"></div>
+  <div id="floating-slot"></div>
+
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // FAQPage schema for SSS page
+    (function(){
+      var faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": SITE_CONTENT.faq.map(function(f){
+          return {
+            "@type": "Question",
+            "name": f.question,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": f.answer
+            }
+          };
+        })
+      };
+      var el = document.getElementById("faq-schema");
+      if(el) el.textContent = JSON.stringify(faqSchema);
+    })();
+  </script>
+  <!-- Content'i assets/js/content.js'den değiştirin -->
+</body>
+</html>
